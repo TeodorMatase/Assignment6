@@ -9,8 +9,7 @@ public class TestTicketOffice {
 	//Testing Shit
 	public static void main(String[] args) {
 		TestTicketOffice ourOffice = new TestTicketOffice();
-		ourOffice.testServerCachedHardInstance();
-		//ourOffice.basicServerTest();
+		ourOffice.basicServerTest();
 	}
 
 	public static int score = 0;
@@ -24,6 +23,7 @@ public class TestTicketOffice {
 		}
 		TicketClient client = new TicketClient();
 		client.requestTicket();
+		//client.requestTicket();
 	}
 
 	@Test
