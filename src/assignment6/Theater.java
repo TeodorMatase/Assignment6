@@ -9,26 +9,29 @@ public class Theater {
 	7-20 = house middle
 	21-27 = house right
 */
-	boolean seats[][]; //728 seats in total
+	boolean seats[][] = new boolean[26][28]; //728 seats in total
+//	int BO[][]; //The boxoffice that sold that specific seat
+	
 	
 	public Theater(){
 		for(int i = 0; i < 26; i++){
 			for(int j = 0; j < 28; j++){
 				seats[i][j] = false;
+		//		BO[i][j] = 0;
 			}
 		}
 	}
-	public int bestAvailableSeat(){
+	public String bestAvailableSeat(){
 		//Check first available row middle seats
 		//If all are taken, then check that same rows side seats
 		//If all side seats are taken go to the next row and start over
 		for(int i = 0; i < 26; i++){
 			int s = checkseat(i);
 			if(s != -1){
-				return s;
+				return i+","+s;
 			}
 		}
-		return -1;
+		return "-1";
 	}
 	
 	public int checkseat(int row){
@@ -51,12 +54,14 @@ public class Theater {
 	}
 	
 
-	public void markAvailableSeatTaken(int r, int s){
+	public void markAvailableSeatTaken(int r, int s/*, int boxoffice*/){
 		seats[r][s] = true;
+		//BO[r][s] = boxoffice;
 	}
 
-	public void printTicketSeat(int r, int s){
+	public String printTicketSeat(int r, int s){
 		String section = "";
+		String ans = "";
 		char row = (char)(r + 65);
 		if(s <= 6){
 			section = "House Left";
@@ -69,13 +74,15 @@ public class Theater {
 			s = s-6;
 			section = "House Middle";
 		}
-		System.out.println("This ticket is good for the seat at the following location");
+		ans = "This ticket is good for the seat at the following location: Row:"+row+",Section:"+section+",Seat#:"+s+". Enjoy the Show!";
+/*		System.out.println("This ticket is good for the seat at the following location");
 		System.out.println("Row		: "+row);
 		System.out.println("Section	: "+section);
 		System.out.println("Seat#	: "+s);
+		//System.out.println("Bought from BoxOffice #"+BO[r][s]);
 		System.out.println("Enjoy the Show!");
-		
-
+*/		
+		return ans;
 	}
 }
 
