@@ -9,7 +9,8 @@ public class TestTicketOffice {
 	//Testing Shit
 	public static void main(String[] args) {
 		TestTicketOffice ourOffice = new TestTicketOffice();
-		ourOffice.basicServerTest();
+		ourOffice.testServerCachedHardInstance();
+		//ourOffice.basicServerTest();
 	}
 
 	public static int score = 0;

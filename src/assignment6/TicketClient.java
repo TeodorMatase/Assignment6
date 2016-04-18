@@ -59,7 +59,7 @@ public class TicketClient {
 	TicketClient() {
 		this("localhost", "unnamed client");
 	}
-
+	
 	void requestTicket() {
 		// TODO thread.run()
 		tc.run();
