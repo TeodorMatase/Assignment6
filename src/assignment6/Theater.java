@@ -25,6 +25,7 @@ public class Theater {
 		//Check first available row middle seats
 		//If all are taken, then check that same rows side seats
 		//If all side seats are taken go to the next row and start over
+		//i = row number, s = seat number
 		for(int i = 0; i < 26; i++){
 			int s = checkseat(i);
 			if(s != -1){
