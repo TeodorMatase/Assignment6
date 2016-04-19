@@ -7,11 +7,11 @@ import org.junit.Test;
 public class TestTicketOffice {
 	
 	//Testing Shit
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		TestTicketOffice ourOffice = new TestTicketOffice();
 		ourOffice.basicServerTest();
 	}
-
+*/
 	public static int score = 0;
 
 	// @Test
@@ -40,7 +40,7 @@ public class TestTicketOffice {
 		
 	}
 
-	@Test
+//	@Test
 	public void twoNonConcurrentServerTest() {
 		try {
 			TicketServer.start(16791);
@@ -55,7 +55,7 @@ public class TestTicketOffice {
 		c3.requestTicket();
 	}
 
-	@Test
+//	@Test
 	public void twoConcurrentServerTest() {
 		try {
 			TicketServer.start(16792);

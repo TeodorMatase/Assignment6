@@ -32,24 +32,30 @@ class ThreadedTicketServer implements Runnable {
 
 	public void run() {
 		// TODO 422C
+		System.out.flush();
 		ServerSocket serverSocket;
 		try {
 			serverSocket = new ServerSocket(TicketServer.PORT);
-			Socket clientSocket = serverSocket.accept();
-			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-			int temp = in.read();
-			PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-			String seat = theat.bestAvailableSeat();
-			if(seat.equals("-1")){
-				out.println("No seats left");
+			while(true){
+				Socket clientSocket = serverSocket.accept();
+				BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+				String seat = theat.bestAvailableSeat();
+				if(seat.equals("-1")){
+					out.println("No seats left");
+				}
+				else{
+					int r = Character.getNumericValue(seat.charAt(0));
+					int s = Character.getNumericValue(seat.charAt(2));
+					theat.markAvailableSeatTaken(r, s/*,boxoffice#*/);
+					out.println(theat.printTicketSeat(r, s));
+				}
+				in.close();
+				out.close();
 			}
-			else{
-				int r = Character.getNumericValue(seat.charAt(0));
-				int s = Character.getNumericValue(seat.charAt(2));
-				theat.markAvailableSeatTaken(r, s/*,boxoffice#*/);
-				out.println(theat.printTicketSeat(r, s));
-			}
-			clientSocket.close();
+
+			//clientSocket.close();
+			//serverSocket.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
