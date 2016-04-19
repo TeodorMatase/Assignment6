@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.StringTokenizer;
 
 public class TicketServer {
 	static int PORT = 2222;
@@ -42,13 +43,16 @@ class ThreadedTicketServer implements Runnable {
 				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 				String seat = theat.bestAvailableSeat();
 				if(seat.equals("-1")){
-					out.println("No seats left");
+					System.out.println("No seats left");
 				}
 				else{
-					int r = Character.getNumericValue(seat.charAt(0));
-					int s = Character.getNumericValue(seat.charAt(2));
-					theat.markAvailableSeatTaken(r, s/*,boxoffice#*/);
-					out.println(theat.printTicketSeat(r, s));
+					StringTokenizer temp = new StringTokenizer(seat, ",");
+					int count = temp.countTokens();
+					int x[] = new int[count];
+					x[0] = Integer.parseInt(temp.nextToken());
+					x[1] = Integer.parseInt(temp.nextToken());
+					theat.markAvailableSeatTaken(x[0], x[1]/*,boxoffice#*/);
+					out.println(theat.printTicketSeat(x[0], x[1]));
 				}
 				in.close();
 				out.close();

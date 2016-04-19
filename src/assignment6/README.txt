@@ -2,6 +2,8 @@ Teodor Matase
 Jiwhan Son
 
 https://github.com/TeodorMatase/Assignment6
+Server Format:
+1 Server with 2 threads that process requests
 
 Assumptions:
 

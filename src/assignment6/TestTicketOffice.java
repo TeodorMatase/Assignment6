@@ -26,7 +26,7 @@ public class TestTicketOffice {
 		//client.requestTicket();
 	}
 
-//	@Test
+	@Test
 	public void testServerCachedHardInstance() {
 		try {
 			TicketServer.start(16790);
@@ -34,9 +34,12 @@ public class TestTicketOffice {
 			fail();
 		}
 		TicketClient client1 = new TicketClient("localhost", "c1");
-		TicketClient client2 = new TicketClient("localhost", "c2");
-		client1.requestTicket();
-		client2.requestTicket();
+		//TicketClient client2 = new TicketClient("localhost", "c2");
+		//client1.requestTicket();
+		//client2.requestTicket();
+		for(int i = 0; i < 1000; i++){
+			client1.requestTicket();
+		}
 		
 	}
 
@@ -55,7 +58,7 @@ public class TestTicketOffice {
 		c3.requestTicket();
 	}
 
-	@Test
+//	@Test
 	public void twoConcurrentServerTest() {
 		try {
 			TicketServer.start(16792);
