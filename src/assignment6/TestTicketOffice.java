@@ -5,10 +5,9 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 public class TestTicketOffice {
-	
 	public static int score = 0;
 
-	// @Test
+//	@Test
 	public void basicServerTest() {
 		try {
 			Theater theat = new Theater();
