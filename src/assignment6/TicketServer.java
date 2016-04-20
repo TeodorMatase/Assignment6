@@ -15,9 +15,9 @@ public class TicketServer {
 	// do not have more than three servers running concurrently
 	final static int MAXPARALLELTHREADS = 3;
 
-	public static void start(int portNumber, Theater theater) throws IOException {
+	public static void start(int portNumber, Theater theater, String boxoffice) throws IOException {
 		PORT = portNumber;
-		Runnable serverThread = new ThreadedTicketServer(theater);
+		Runnable serverThread = new ThreadedTicketServer(theater, boxoffice);
 		Thread t = new Thread(serverThread);
 		t.start();
 		
@@ -27,14 +27,14 @@ public class TicketServer {
 class ThreadedTicketServer implements Runnable {
 
 	String hostname = "127.0.0.1";
-	String threadname = "X";
+	String threadname;
 	String testcase;
 	TicketClient sc;
 	Theater theat;
 	
-	public ThreadedTicketServer(Theater t){
+	public ThreadedTicketServer(Theater t, String bo){
 		hostname = "127.0.0.1";
-		threadname = "X";
+		threadname = bo;
 		this.theat = t;
 	}
 
@@ -48,7 +48,7 @@ class ThreadedTicketServer implements Runnable {
 				Socket clientSocket = serverSocket.accept();
 				BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-				String seat = theat.bestAvailableSeat(/*boxoffice*/);
+				String seat = theat.bestAvailableSeat();
 				if(seat.equals("-1")){
 					out.println("No seats left");
 					serverSocket.close();
@@ -62,9 +62,8 @@ class ThreadedTicketServer implements Runnable {
 					int x[] = new int[count];
 					x[0] = Integer.parseInt(temp.nextToken());
 					x[1] = Integer.parseInt(temp.nextToken());
-					//x[2] = Integer.parseInt(temp.nextToken(); //boxoffice
-					theat.markAvailableSeatTaken(x[0], x[1]/*x[2]*/);
-					out.println(theat.printTicketSeat(x[0], x[1]));
+					theat.markAvailableSeatTaken(x[0], x[1]);
+					out.println(theat.printTicketSeat(x[0], x[1], threadname));
 				}
 				in.close();
 				out.close();

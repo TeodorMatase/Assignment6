@@ -10,14 +10,14 @@ public class Theater {
 	21-27 = house right
 */
 	boolean seats[][] = new boolean[26][28]; //728 seats in total
-//	int BO[][]; //The boxoffice that sold that specific seat
+	//int BO[][] = new int[27][28]; //The boxoffice that sold that specific seat
 	
 	
 	public Theater(){
 		for(int i = 0; i < 26; i++){
 			for(int j = 0; j < 28; j++){
 				seats[i][j] = false;
-		//		BO[i][j] = 0;
+				//BO[i][j] = 0;
 			}
 		}
 	}
@@ -55,14 +55,15 @@ public class Theater {
 	}
 	
 
-	public void markAvailableSeatTaken(int r, int s/*, int boxoffice*/){
+	public void markAvailableSeatTaken(int r, int s){
 		seats[r][s] = true;
 		//BO[r][s] = boxoffice;
 	}
 
-	public String printTicketSeat(int r, int s){
+	public String printTicketSeat(int r, int s, String tn){
 		String section = "";
 		String ans = "";
+		String boxoffice = tn;
 		char row = (char)(r + 65);
 		if(s <= 6){
 			section = "House Left";
@@ -75,7 +76,7 @@ public class Theater {
 			s = s-6;
 			section = "House Middle";
 		}
-		ans = "This ticket is good for the seat at the following location: Row:"+row+",Section:"+section+",Seat#:"+s+". Enjoy the Show!";
+		ans = "This ticket was purchased from Box Office "+boxoffice+".It is located at Row:"+row+",Section:"+section+",Seat#:"+s+". Enjoy the Show!";
 /*		System.out.println("This ticket is good for the seat at the following location");
 		System.out.println("Row		: "+row);
 		System.out.println("Section	: "+section);
