@@ -15,11 +15,12 @@ public class TicketServer {
 	// do not have more than three servers running concurrently
 	final static int MAXPARALLELTHREADS = 3;
 
-	public static void start(int portNumber) throws IOException {
+	public static void start(int portNumber, Theater theater) throws IOException {
 		PORT = portNumber;
-		Runnable serverThread = new ThreadedTicketServer();
+		Runnable serverThread = new ThreadedTicketServer(theater);
 		Thread t = new Thread(serverThread);
 		t.start();
+		
 	}
 }
 
@@ -29,7 +30,13 @@ class ThreadedTicketServer implements Runnable {
 	String threadname = "X";
 	String testcase;
 	TicketClient sc;
-	Theater theat = new Theater();
+	Theater theat;
+	
+	public ThreadedTicketServer(Theater t){
+		hostname = "127.0.0.1";
+		threadname = "X";
+		this.theat = t;
+	}
 
 	public void run() {
 		// TODO 422C

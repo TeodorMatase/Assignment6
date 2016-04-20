@@ -6,30 +6,27 @@ import org.junit.Test;
 
 public class TestTicketOffice {
 	
-	//Testing Shit
-/*	public static void main(String[] args) {
-		TestTicketOffice ourOffice = new TestTicketOffice();
-		ourOffice.basicServerTest();
-	}
-*/
 	public static int score = 0;
 
 	// @Test
 	public void basicServerTest() {
 		try {
-			TicketServer.start(16789);
+			Theater theat = new Theater();
+			TicketServer.start(16789,theat);
 		} catch (Exception e) {
 			fail();
 		}
 		TicketClient client = new TicketClient();
 		client.requestTicket();
+		
 		//client.requestTicket();
 	}
 
 	@Test
 	public void testServerCachedHardInstance() {
 		try {
-			TicketServer.start(16790);
+			Theater theat = new Theater();
+			TicketServer.start(16790, theat);
 		} catch (Exception e) {
 			fail();
 		}
@@ -46,10 +43,12 @@ public class TestTicketOffice {
 		
 	}
 
-//	@Test
+	//@Test
 	public void twoNonConcurrentServerTest() {
 		try {
-			TicketServer.start(16791);
+			Theater theat = new Theater();
+			TicketServer.start(16791, theat);
+			TicketServer.start(16666, theat);
 		} catch (Exception e) {
 			fail();
 		}
@@ -61,10 +60,12 @@ public class TestTicketOffice {
 		c3.requestTicket();
 	}
 
-//	@Test
+	//@Test
 	public void twoConcurrentServerTest() {
 		try {
-			TicketServer.start(16792);
+			Theater theat = new Theater();
+			TicketServer.start(16792,theat);
+			
 		} catch (Exception e) {
 			fail();
 		}
@@ -73,26 +74,38 @@ public class TestTicketOffice {
 		final TicketClient c3 = new TicketClient("conc3");
 		Thread t1 = new Thread() {
 			public void run() {
-				c1.requestTicket();
+				int temp = c1.requestTicket();
+				if(temp == 1){
+					return;
+				}
 			}
 		};
 		Thread t2 = new Thread() {
 			public void run() {
-				c2.requestTicket();
+				int temp = c2.requestTicket();
+				if(temp == 1){
+					return;
+				}
 			}
 		};
 		Thread t3 = new Thread() {
 			public void run() {
-				c3.requestTicket();
+				int temp = c3.requestTicket();
+				if(temp == 1){
+					return;
+				}
 			}
 		};
+		
 		t1.start();
 		t2.start();
 		t3.start();
 		try {
-			t1.join();
-			t2.join();
-			t3.join();
+			while(true){
+				t1.join();
+				t2.join();
+				t3.join();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
