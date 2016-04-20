@@ -43,11 +43,10 @@ class ThreadedTicketServer implements Runnable {
 				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 				String seat = theat.bestAvailableSeat(/*boxoffice*/);
 				if(seat.equals("-1")){
-					System.out.println("No seats left");
+					out.println("No seats left");
 					serverSocket.close();
 					in.close();
 					out.close();
-					System.exit(0);
 					return;
 				}
 				else{

@@ -38,7 +38,10 @@ public class TestTicketOffice {
 		//client1.requestTicket();
 		//client2.requestTicket();
 		for(int i = 0; i < 1000; i++){
-			client1.requestTicket();
+			int temp = client1.requestTicket();
+			if(temp == 1){
+				return;
+			}
 		}
 		
 	}

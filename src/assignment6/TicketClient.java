@@ -34,6 +34,9 @@ class ThreadedTicketClient implements Runnable {
 			out.close();
 			stdIn.close();
 			echoSocket.close();
+			if(temp.equals("No seats left")){
+				sc.done = 1;
+			}
 			return;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -50,6 +53,7 @@ public class TicketClient {
 	String result = "dummy";
 	String hostName = "";
 	String threadName = "";
+	int done = 0;
 
 	TicketClient(String hostname, String threadname) {
 		tc = new ThreadedTicketClient(this, hostname, threadname);
@@ -65,10 +69,14 @@ public class TicketClient {
 		this("localhost", "unnamed client");
 	}
 	
-	void requestTicket() {
+	int requestTicket() {
 		// TODO thread.run()
 		tc.run();
+		if(this.done == 1){
+			return this.done;
+		}
 		System.out.println(hostName + "," + threadName + " got one ticket");
+		return 0;
 	}
 
 	void sleep() {
