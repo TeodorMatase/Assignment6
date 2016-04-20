@@ -41,9 +41,14 @@ class ThreadedTicketServer implements Runnable {
 				Socket clientSocket = serverSocket.accept();
 				BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-				String seat = theat.bestAvailableSeat();
+				String seat = theat.bestAvailableSeat(/*boxoffice*/);
 				if(seat.equals("-1")){
 					System.out.println("No seats left");
+					serverSocket.close();
+					in.close();
+					out.close();
+					System.exit(0);
+					return;
 				}
 				else{
 					StringTokenizer temp = new StringTokenizer(seat, ",");
@@ -51,15 +56,13 @@ class ThreadedTicketServer implements Runnable {
 					int x[] = new int[count];
 					x[0] = Integer.parseInt(temp.nextToken());
 					x[1] = Integer.parseInt(temp.nextToken());
-					theat.markAvailableSeatTaken(x[0], x[1]/*,boxoffice#*/);
+					//x[2] = Integer.parseInt(temp.nextToken(); //boxoffice
+					theat.markAvailableSeatTaken(x[0], x[1]/*x[2]*/);
 					out.println(theat.printTicketSeat(x[0], x[1]));
 				}
 				in.close();
 				out.close();
 			}
-
-			//clientSocket.close();
-			//serverSocket.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

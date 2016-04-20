@@ -34,7 +34,6 @@ class ThreadedTicketClient implements Runnable {
 			out.close();
 			stdIn.close();
 			echoSocket.close();
-			
 			return;
 		} catch (Exception e) {
 			e.printStackTrace();
