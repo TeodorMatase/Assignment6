@@ -66,6 +66,7 @@ public class Theater {
 		String boxoffice = tn;
 		char row = (char)(r + 65);
 		if(s <= 6){
+			s++;
 			section = "House Left";
 		}
 		else if(s >= 21){
@@ -77,13 +78,7 @@ public class Theater {
 			section = "House Middle";
 		}
 		ans = "This ticket was purchased from Box Office "+boxoffice+".It is located at Row:"+row+",Section:"+section+",Seat#:"+s+". Enjoy the Show!";
-/*		System.out.println("This ticket is good for the seat at the following location");
-		System.out.println("Row		: "+row);
-		System.out.println("Section	: "+section);
-		System.out.println("Seat#	: "+s);
-		//System.out.println("Bought from BoxOffice #"+BO[r][s]);
-		System.out.println("Enjoy the Show!");
-*/		
+	
 		return ans;
 	}
 }

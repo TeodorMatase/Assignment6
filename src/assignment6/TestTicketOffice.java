@@ -22,7 +22,7 @@ public class TestTicketOffice {
 		//client.requestTicket();
 	}
 
-	//@Test
+	@Test
 	public void testServerCachedHardInstance() {
 		try {
 			Theater theat = new Theater();
@@ -43,21 +43,23 @@ public class TestTicketOffice {
 		
 	}
 
-	@Test
+//	@Test
 	public void twoNonConcurrentServerTest() {
 		try {
 			Theater theat = new Theater();
 			TicketServer.start(16791, theat, "A");
-			TicketServer.start(16666, theat, "B");
+			TicketServer.start(15000, theat, "B");
 		} catch (Exception e) {
 			fail();
 		}
 		TicketClient c1 = new TicketClient("nonconc1");
 		TicketClient c2 = new TicketClient("nonconc2");
 		TicketClient c3 = new TicketClient("nonconc3");
-		c1.requestTicket();
-		c2.requestTicket();
-		c3.requestTicket();
+		for(int i = 0; i < 1000; i++){
+			c1.requestTicket();
+			c2.requestTicket();
+			c3.requestTicket();
+		}
 	}
 
 	//@Test
@@ -65,6 +67,7 @@ public class TestTicketOffice {
 		try {
 			Theater theat = new Theater();
 			TicketServer.start(16792,theat,"A");
+			TicketServer.start(16645,theat,"B");
 			
 		} catch (Exception e) {
 			fail();

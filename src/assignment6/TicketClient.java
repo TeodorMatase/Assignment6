@@ -24,7 +24,7 @@ class ThreadedTicketClient implements Runnable {
 			Socket echoSocket = new Socket(hostname, TicketServer.PORT);
 			//Try this
 			//TicketServer.PORT++;
-			sc.sleep();
+			sc.sleep(Math.random()*100);
 			PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
 			BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
@@ -75,13 +75,13 @@ public class TicketClient {
 		if(this.done == 1){
 			return this.done;
 		}
-		System.out.println(hostName + "," + threadName + " got one ticket");
+	//	System.out.println(hostName + "," + threadName + " got one ticket");
 		return 0;
 	}
 
-	void sleep() {
+	void sleep(double d) {
 		try {
-			Thread.sleep(100);
+			Thread.sleep((long) d);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

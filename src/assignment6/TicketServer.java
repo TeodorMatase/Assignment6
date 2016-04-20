@@ -14,12 +14,14 @@ public class TicketServer {
 	// EE422C: no matter how many concurrent requests you get,
 	// do not have more than three servers running concurrently
 	final static int MAXPARALLELTHREADS = 3;
+	static Thread s;
 
 	public static void start(int portNumber, Theater theater, String boxoffice) throws IOException {
 		PORT = portNumber;
 		Runnable serverThread = new ThreadedTicketServer(theater, boxoffice);
 		Thread t = new Thread(serverThread);
-		t.start();
+		s = t;
+		s.start();
 		
 	}
 }
@@ -45,6 +47,12 @@ class ThreadedTicketServer implements Runnable {
 		try {
 			serverSocket = new ServerSocket(TicketServer.PORT);
 			while(true){
+			/*	try {
+					Thread.sleep((long) (Math.random()*100));
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				*/
 				Socket clientSocket = serverSocket.accept();
 				BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -69,9 +77,7 @@ class ThreadedTicketServer implements Runnable {
 				out.close();
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-
+		} 
 	}
 }
