@@ -6,6 +6,15 @@ import org.junit.Test;
 
 public class TestTicketOffice {
 	public static int score = 0;
+	
+	public static void main(String[] args) {
+		TestTicketOffice ourOffice = new TestTicketOffice();
+		//ourOffice.basicServerTest();
+		//ourOffice.testServerCachedHardInstance();
+		//ourOffice.twoNonConcurrentServerTest();
+		//ourOffice.twoServerTest();
+		ourOffice.twoConcurrentServerTest();
+	}
 
 //	@Test
 	public void basicServerTest() {
@@ -17,11 +26,9 @@ public class TestTicketOffice {
 		}
 		TicketClient client = new TicketClient();
 		client.requestTicket();
-		
-		//client.requestTicket();
 	}
 
-	@Test
+//	@Test
 	public void testServerCachedHardInstance() {
 		try {
 			Theater theat = new Theater();
@@ -30,16 +37,17 @@ public class TestTicketOffice {
 			fail();
 		}
 		TicketClient client1 = new TicketClient("localhost", "c1");
-		//TicketClient client2 = new TicketClient("localhost", "c2");
-		//client1.requestTicket();
-		//client2.requestTicket();
+		TicketClient client2 = new TicketClient("localhost", "c2");
+		client1.requestTicket();
+		client2.requestTicket();
+		/*
 		for(int i = 0; i < 1000; i++){
 			int temp = client1.requestTicket();
 			if(temp == 1){
 				return;
 			}
 		}
-		
+		*/
 	}
 
 //	@Test
@@ -47,26 +55,51 @@ public class TestTicketOffice {
 		try {
 			Theater theat = new Theater();
 			TicketServer.start(16791, theat, "A");
-			TicketServer.start(15000, theat, "B");
+			//TicketServer.start(15000, theat, "B");
 		} catch (Exception e) {
 			fail();
 		}
 		TicketClient c1 = new TicketClient("nonconc1");
 		TicketClient c2 = new TicketClient("nonconc2");
 		TicketClient c3 = new TicketClient("nonconc3");
+		c1.requestTicket();
+		c2.requestTicket();
+		c3.requestTicket();
+		/*
 		for(int i = 0; i < 1000; i++){
 			c1.requestTicket();
 			c2.requestTicket();
 			c3.requestTicket();
 		}
+		*/
 	}
-
+	
+	//test method
 	//@Test
+	public void twoServerTest() {
+		TicketClient c1 = new TicketClient();
+		TicketClient c2 = new TicketClient();
+		try {
+			Theater theat = new Theater();
+			TicketServer.start(16792, theat, "A");
+			c1 = new TicketClient("conc1");
+			TicketServer.start(16645, theat, "B");
+			c2 = new TicketClient("conc2");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		c1.requestTicket();
+		c2.requestTicket();
+	}
+	
+
+//	@Test
 	public void twoConcurrentServerTest() {
 		try {
 			Theater theat = new Theater();
 			TicketServer.start(16792,theat,"A");
-			TicketServer.start(16645,theat,"B");
+			//TicketServer.start(16645,theat,"B");
 			
 		} catch (Exception e) {
 			fail();

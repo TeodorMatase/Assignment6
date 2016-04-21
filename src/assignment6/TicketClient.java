@@ -11,19 +11,33 @@ class ThreadedTicketClient implements Runnable {
 	String hostname = "127.0.0.1";
 	String threadname = "X";
 	TicketClient sc;
+	
+	//new code
+	Socket echoSocket;
+	//end new code
 
 	public ThreadedTicketClient(TicketClient sc, String hostname, String threadname) {
 		this.sc = sc;
 		this.hostname = hostname;
 		this.threadname = threadname;
+		
+		//new code
+		try {
+			echoSocket = new Socket(hostname, TicketServer.PORT);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		//end new code
 	}
 
 	public void run() {
 		System.out.flush();
 		try {
-			Socket echoSocket = new Socket(hostname, TicketServer.PORT);
-			//Try this
-			//TicketServer.PORT++;
+			//old code
+			//Socket echoSocket = new Socket(hostname, TicketServer.PORT);
+			//end old code
+			
 			sc.sleep(Math.random()*100);
 			PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));

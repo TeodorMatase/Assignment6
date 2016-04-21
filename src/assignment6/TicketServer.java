@@ -22,7 +22,7 @@ public class TicketServer {
 		Thread t = new Thread(serverThread);
 		s = t;
 		s.start();
-		
+		//s.run();
 	}
 }
 
