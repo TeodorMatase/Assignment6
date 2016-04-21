@@ -1,3 +1,9 @@
+/*
+ * Model for our ticket seller
+ * 
+ * @author Jiwhan Son, Teodor Matase
+ */
+
 package assignment6;
 
 import java.io.BufferedReader;

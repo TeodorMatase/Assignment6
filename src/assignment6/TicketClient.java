@@ -1,3 +1,8 @@
+/*
+ * Model for our ticket buyers
+ * 
+ * @author Jiwhan Son, Teodor Matase
+ */
 
 package assignment6;
 
@@ -16,6 +21,9 @@ class ThreadedTicketClient implements Runnable {
 	Socket echoSocket;
 	//end new code
 
+	/*
+	 * Constructor for ThreadedTicketClient
+	 */
 	public ThreadedTicketClient(TicketClient sc, String hostname, String threadname) {
 		this.sc = sc;
 		this.hostname = hostname;

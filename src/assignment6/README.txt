@@ -1,5 +1,7 @@
-Teodor Matase
-Jiwhan Son
+Teodor Matase, 
+Jiwhan Son, js78978
+
+Tests: TestTicketOffice.java
 
 https://github.com/TeodorMatase/Assignment6
 Server Format:
