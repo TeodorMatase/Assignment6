@@ -19,7 +19,7 @@ public class TestTicketOffice {
 		//ourOffice.twoNonConcurrentServerTest();
 		//ourOffice.twoServerTest();
 		//ourOffice.twoConcurrentServerTest();
-		ourOffice.twoServerTwoThreadTest();
+		//ourOffice.twoServerTwoThreadTest();
 	}
 
 //	@Test
@@ -153,6 +153,7 @@ public class TestTicketOffice {
 
 	}
 	
+	//unfinished
 	public void twoServerTwoThreadTest() {
 		try {
 			Theater theat = new Theater();
